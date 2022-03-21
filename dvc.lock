@@ -1,0 +1,22 @@
+schema: '2.0'
+stages:
+  indomain:
+    cmd: singularity run --no-home --cleanenv --containall --bind $(realpath $(dvc
+      root)/../..)/data/hdf5:/mnt/out:rw --bind $(realpath $(dvc root)/../..)/data/hdf5/TRACMASS_run.hdf5:/mnt/in/TRACMASS_run.hdf5:ro
+      --bind $(realpath $(dvc root)/../..)/params.yaml:/params/params.yaml:ro ../../src/dians-v2022.2.0.sif
+      create_column --tracmass-hdf5=/mnt/in/TRACMASS_run.hdf5 --params=/params/params.yaml
+      --column-dst=/mnt/out --column=indomain
+    deps:
+    - path: ../../data/hdf5/TRACMASS_run.hdf5
+      md5: 88673606f06aa422c2cd66cd698c29ec
+      size: 245650906248
+    - path: ../../params.yaml
+      md5: e5e29b677694b3b66891dcd4fbea6f90
+      size: 2557
+    - path: ../../src/dians-v2022.2.0.sif
+      md5: 218630c4eb87913ebe01a7693bc35239
+      size: 720613376
+    outs:
+    - path: ../../data/hdf5/column_indomain.hdf5
+      md5: eb3731527a3b82258609b150dfa171a8
+      size: 5117735717
